@@ -3,6 +3,7 @@ import React, { useCallback, useRef } from 'react';
 import { Text, View, KeyboardAvoidingView, Platform } from 'react-native';
 import { Formik } from 'formik';
 import Swiper from 'react-native-swiper';
+import { useNavigation } from '@react-navigation/native';
 
 import CustomInput from '../../components/CustomInput';
 import Button from '../../components/Button';
@@ -11,12 +12,17 @@ import styles from './styles';
 
 const SignUp: React.FC = () => {
   const swiper = useRef<Swiper>(null);
+  const { navigate } = useNavigation();
 
   const handleNext = useCallback(() => {
     if (swiper.current) {
       swiper.current.scrollBy(1);
     }
   }, []);
+
+  const handleSignUp = useCallback(() => {
+    navigate('Success');
+  }, [navigate]);
 
   return (
     <KeyboardAvoidingView
@@ -59,7 +65,7 @@ const SignUp: React.FC = () => {
               <>
                 <CustomInput icon="lock" placeholder="Senha" />
                 <CustomInput icon="lock" placeholder="Repetir senha" last />
-                <Button onPress={() => console.log('aham')}>Próximo</Button>
+                <Button onPress={handleSignUp}>Próximo</Button>
               </>
             </View>
           </Swiper>
