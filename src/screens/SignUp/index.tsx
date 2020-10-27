@@ -3,12 +3,14 @@ import React, { useCallback, useRef } from 'react';
 import { Text, View, KeyboardAvoidingView, Platform } from 'react-native';
 import { Formik } from 'formik';
 import Swiper from 'react-native-swiper';
+import * as Yup from 'yup';
 import { useNavigation } from '@react-navigation/native';
 
 import CustomInput from '../../components/CustomInput';
 import Button from '../../components/Button';
 
 import styles from './styles';
+import api from '../../services/api';
 
 const SignUp: React.FC = () => {
   const swiper = useRef<Swiper>(null);
@@ -20,9 +22,32 @@ const SignUp: React.FC = () => {
     }
   }, []);
 
-  const handleSignUp = useCallback(() => {
-    navigate('Success');
-  }, [navigate]);
+  const schema = Yup.object().shape({
+    name: Yup.string().required('Campo nome é obrigatório'),
+    email: Yup.string().email().required('Campo e-mail é obrigatório'),
+    password: Yup.string().required('Campo senha é obrigatório'),
+    passwordConfirmation: Yup.string().oneOf(
+      [Yup.ref('password')],
+      'Os campos devem ser iguais',
+    ),
+  });
+
+  const handleSignUp = useCallback(
+    async (values) => {
+      console.log(values);
+
+      await schema.validate(values, { abortEarly: false });
+
+      await api.post('/users', {
+        name: values.name,
+        email: values.email,
+        password: values.password,
+      });
+
+      navigate('SignUpSuccess');
+    },
+    [schema, navigate],
+  );
 
   return (
     <KeyboardAvoidingView
@@ -43,32 +68,65 @@ const SignUp: React.FC = () => {
         </View>
 
         <Formik
-          initialValues={{ name: '', email: '', password: '' }}
-          onSubmit={() => {}}>
-          <Swiper
-            ref={swiper}
-            dotStyle={styles.swiperDot}
-            activeDotStyle={styles.swiperActiveDot}
-            paginationStyle={styles.swipperPagination}
-            style={styles.swiperWrapper}>
-            <View style={styles.formContainer}>
-              <Text style={styles.signUpStepLabel}>1.Dados</Text>
-              <>
-                <CustomInput icon="user" placeholder="Nome" />
-                <CustomInput icon="mail" placeholder="E-mail" last />
-                <Button onPress={handleNext}>Próximo</Button>
-              </>
-            </View>
+          initialValues={{
+            name: '',
+            email: '',
+            password: '',
+            confirmPassword: '',
+          }}
+          validationSchema={schema}
+          onSubmit={handleSignUp}>
+          {({ values, handleChange, handleSubmit, isValid }) => {
+            return (
+              <Swiper
+                ref={swiper}
+                dotStyle={styles.swiperDot}
+                activeDotStyle={styles.swiperActiveDot}
+                style={styles.swiperWrapper}>
+                <View style={styles.formContainer}>
+                  <Text style={styles.signUpStepLabel}>1.Dados</Text>
+                  <>
+                    <CustomInput
+                      icon="user"
+                      placeholder="Nome"
+                      value={values.name}
+                      onChangeText={handleChange('name')}
+                    />
+                    <CustomInput
+                      icon="mail"
+                      placeholder="E-mail"
+                      value={values.email}
+                      onChangeText={handleChange('email')}
+                      last
+                    />
+                    <Button onPress={handleNext}>Próximo</Button>
+                  </>
+                </View>
 
-            <View style={styles.formContainer}>
-              <Text style={styles.signUpStepLabel}>2.Senha</Text>
-              <>
-                <CustomInput icon="lock" placeholder="Senha" />
-                <CustomInput icon="lock" placeholder="Repetir senha" last />
-                <Button onPress={handleSignUp}>Próximo</Button>
-              </>
-            </View>
-          </Swiper>
+                <View style={styles.formContainer}>
+                  <Text style={styles.signUpStepLabel}>2.Senha</Text>
+                  <>
+                    <CustomInput
+                      icon="lock"
+                      placeholder="Senha"
+                      value={values.password}
+                      onChangeText={handleChange('password')}
+                    />
+                    <CustomInput
+                      icon="lock"
+                      placeholder="Repetir senha"
+                      last
+                      value={values.confirmPassword}
+                      onChangeText={handleChange('confirmPassword')}
+                    />
+                    <Button onPress={handleSubmit} enabled={isValid}>
+                      Cadastrar
+                    </Button>
+                  </>
+                </View>
+              </Swiper>
+            );
+          }}
         </Formik>
       </View>
     </KeyboardAvoidingView>
