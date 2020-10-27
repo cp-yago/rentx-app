@@ -111,11 +111,13 @@ const SignUp: React.FC = () => {
                       placeholder="Senha"
                       value={values.password}
                       onChangeText={handleChange('password')}
+                      password
                     />
                     <CustomInput
                       icon="lock"
                       placeholder="Repetir senha"
                       last
+                      password
                       value={values.confirmPassword}
                       onChangeText={handleChange('confirmPassword')}
                     />
