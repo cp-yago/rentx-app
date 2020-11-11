@@ -4,17 +4,18 @@ import { Text, View, KeyboardAvoidingView, Platform } from 'react-native';
 import { Formik } from 'formik';
 import Swiper from 'react-native-swiper';
 import * as Yup from 'yup';
-import { useNavigation } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
+import { signUpRequest } from '../../store/modules/auth/actions';
 
 import CustomInput from '../../components/CustomInput';
 import Button from '../../components/Button';
 
 import styles from './styles';
-import api from '../../services/api';
 
 const SignUp: React.FC = () => {
+  const dispatch = useDispatch();
+
   const swiper = useRef<Swiper>(null);
-  const { navigate } = useNavigation();
 
   const handleNext = useCallback(() => {
     if (swiper.current) {
@@ -38,15 +39,11 @@ const SignUp: React.FC = () => {
 
       await schema.validate(values, { abortEarly: false });
 
-      await api.post('/users', {
-        name: values.name,
-        email: values.email,
-        password: values.password,
-      });
+      const { name, email, password } = values;
 
-      navigate('SignUpSuccess');
+      dispatch(signUpRequest({ name, email, password }));
     },
-    [schema, navigate],
+    [dispatch, schema],
   );
 
   return (
