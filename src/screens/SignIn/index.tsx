@@ -1,9 +1,10 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Text, View, KeyboardAvoidingView, Platform } from 'react-native';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-// import { useNavigation } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
+import { signInRequest } from '../../store/modules/auth/actions';
 
 import Checkbox from '@react-native-community/checkbox';
 import CustomInput from '../../components/CustomInput';
@@ -11,16 +12,23 @@ import Button from '../../components/Button';
 
 import styles from './styles';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-// import api from '../../services/api';
 
 const SignIn: React.FC = () => {
-  // const { navigate } = useNavigation();
+  const dispatch = useDispatch();
   const [toggleCheckBox, setToggleCheckbox] = useState(false);
 
   const schema = Yup.object().shape({
     email: Yup.string().email().required('Campo e-mail é obrigatório'),
     password: Yup.string().required('Campo senha é obrigatório'),
   });
+
+  const handleSignIn = useCallback(
+    async (values) => {
+      const { email, password } = values;
+      dispatch(signInRequest({ email, password }));
+    },
+    [dispatch],
+  );
 
   return (
     <KeyboardAvoidingView
@@ -47,7 +55,7 @@ const SignIn: React.FC = () => {
             remember: false,
           }}
           validationSchema={schema}
-          onSubmit={() => {}}>
+          onSubmit={handleSignIn}>
           {({ values, handleChange, handleSubmit, isValid }) => {
             return (
               <View style={styles.formContainer}>

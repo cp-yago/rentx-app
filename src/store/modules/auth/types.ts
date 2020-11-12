@@ -14,12 +14,30 @@ export interface ISignUpFormData {
   password: string;
 }
 
-export interface IUser {
-  name: string;
+export interface ISignInFormData {
   email: string;
+  password: string;
+}
+
+export interface IUser {
+  id?: string | null;
+  name: string | null;
+  email: string | null;
+  admin: boolean | null;
+}
+
+export interface ISignInSuccessResponse {
+  user: IUser;
   token: string;
 }
 
+export interface IAuth {
+  token: string | null;
+  loading: boolean;
+  signed: boolean;
+}
+
 export interface IAuthState {
-  user: IUser;
+  user: IUser | null;
+  auth: IAuth;
 }
