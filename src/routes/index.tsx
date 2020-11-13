@@ -37,10 +37,11 @@ const Routes: React.FC = () => {
   return (
     <NavigationContainer ref={navigationRef}>
       <Navigator screenOptions={{ headerShown: false }}>
-        <Screen name="SignIn" component={SignIn} />
+        {signed && <Screen name="Home" component={Home} />}
+
         <Screen name="SignUp" component={SignUp} />
         <Screen name="SignUpSuccess" component={SignUpSuccess} />
-        {signed && <Screen name="Home" component={Home} />}
+        <Screen name="SignIn" component={SignIn} />
       </Navigator>
     </NavigationContainer>
   );
