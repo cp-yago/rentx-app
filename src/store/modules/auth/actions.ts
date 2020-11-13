@@ -18,14 +18,14 @@ export function signUpRequest({ name, email, password }: ISignUpFormData) {
 
 export function signInRequest({ email, password }: ISignInFormData) {
   return {
-    type: '@auth/SIGN_IN_REQUEST',
+    type: ActionTypes.SIGN_IN_REQUEST,
     payload: { email, password },
   };
 }
 
 export function signInSuccess({ token, user }: ISignInSuccessResponse) {
   return {
-    type: '@auth/SIGN_IN_SUCCESS',
+    type: ActionTypes.SIGN_IN_SUCCESS,
     payload: { token, user },
   };
 }

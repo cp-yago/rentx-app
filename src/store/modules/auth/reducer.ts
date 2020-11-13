@@ -27,7 +27,7 @@ const auth: Reducer<IAuthState> = (state = INITIAL_STATE, action) => {
         draft.auth.loading = true;
         break;
       }
-      case '@auth/SIGN_IN_SUCCESS': {
+      case ActionTypes.SIGN_IN_SUCCESS: {
         draft.auth.token = action.payload.token;
         draft.auth.signed = true;
         draft.auth.loading = false;

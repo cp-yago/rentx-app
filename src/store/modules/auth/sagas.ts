@@ -60,6 +60,7 @@ function* signIn({ payload }: SignInRequest) {
   }
 }
 
+function signOut() {
 export default all([
   takeLatest(ActionTypes.SIGN_UP_REQUEST, signUp),
   takeLatest(ActionTypes.SIGN_IN_REQUEST, signIn),
