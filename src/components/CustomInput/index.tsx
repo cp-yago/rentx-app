@@ -46,6 +46,7 @@ const CustomInput: React.ForwardRefRenderFunction<TextInput, InputProps> = ({
           onPress={handleShowPassword}
           style={styles.togglePassword}>
           {showPassword ? (
+            <Icon name="eye-off" size={20} color="#7A7A80" />
             <Icon name="eye" size={20} color="#7A7A80" />
           ) : (
             <Icon name="eye-off" size={20} color="#7A7A80" />
