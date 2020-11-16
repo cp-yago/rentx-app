@@ -48,9 +48,8 @@ function* signIn({ payload }: SignInRequest) {
       ['@Rentx:user', JSON.stringify(user)],
     ]);
 
-    NavigationService.navigate('Home');
+    NavigationService.navigate('BottomNavigation');
   } catch (err) {
-    console.error('ERROR: ', err);
     ToastAndroid.show(
       'Failed to authenticate, please check your credentials',
       ToastAndroid.SHORT,
@@ -59,7 +58,11 @@ function* signIn({ payload }: SignInRequest) {
 }
 
 function signOut() {
+  NavigationService.navigate('SignIn');
+}
+
 export default all([
   takeLatest(ActionTypes.SIGN_UP_REQUEST, signUp),
   takeLatest(ActionTypes.SIGN_IN_REQUEST, signIn),
+  takeLatest(ActionTypes.LOGOUT, signOut),
 ]);
