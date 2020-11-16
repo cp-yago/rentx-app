@@ -29,3 +29,6 @@ export function signInSuccess({ token, user }: ISignInSuccessResponse) {
     payload: { token, user },
   };
 }
+
+export function signOut() {
+  return {

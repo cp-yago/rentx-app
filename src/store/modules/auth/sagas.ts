@@ -21,8 +21,6 @@ function* signUp({ payload }: SignUpRequest) {
 
     NavigationService.navigate('SignUpSuccess');
   } catch (err) {
-    console.error(err);
-
     ToastAndroid.show(
       'Failed to sign up, please check your data.',
       ToastAndroid.SHORT,
