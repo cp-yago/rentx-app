@@ -33,6 +33,10 @@ const auth: Reducer<IAuthState> = (state = INITIAL_STATE, action) => {
         draft.auth.loading = false;
         draft.user = action.payload.user;
         break;
+      }
+      case ActionTypes.LOGOUT: {
+        draft.auth.token = null;
+        draft.auth.signed = false;
         break;
       }
       default: {

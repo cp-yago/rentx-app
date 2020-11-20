@@ -32,3 +32,6 @@ export function signInSuccess({ token, user }: ISignInSuccessResponse) {
 
 export function signOut() {
   return {
+    type: ActionTypes.LOGOUT,
+  };
+}

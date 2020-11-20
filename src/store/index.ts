@@ -26,6 +26,7 @@ if (__DEV__) {
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
+  whitelist: ['auth'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
