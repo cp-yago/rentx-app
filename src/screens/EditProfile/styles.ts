@@ -12,12 +12,18 @@ const styles = StyleSheet.create({
 
   header: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'flex-start',
     paddingTop: 20,
     paddingHorizontal: 15,
     height: '50%',
     backgroundColor: '#1B1B1F',
+  },
+
+  goBackButton: {
+    position: 'absolute',
+    top: 30,
+    left: 20,
   },
 
   pageTitle: {
@@ -37,10 +43,22 @@ const styles = StyleSheet.create({
     marginTop: -80,
   },
 
+  changeAvatarButton: {
+    width: 40,
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#DC1637',
+    position: 'absolute',
+    top: 65,
+    right: 120,
+  },
+
   userName: {
     fontFamily: 'Archivo-Regular',
     fontSize: 30,
     color: '#3D3D4D',
+    marginTop: 10,
   },
 
   personalInfoContainer: {
@@ -48,38 +66,35 @@ const styles = StyleSheet.create({
     height: '50%',
   },
 
-  counterContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingHorizontal: 20,
-    marginVertical: 15,
-  },
-
-  indicatorName: {
-    fontFamily: 'Inter-Regular',
-    fontSize: 15,
-    color: '#7A7A80',
-  },
-
-  metricName: {
-    fontFamily: 'Archivo-Regular',
-    fontSize: 15,
-    color: '#47474D',
-  },
-
-  countDivisor: {
-    borderWidth: 1,
-    borderColor: '#E6E6F0',
-    alignSelf: 'center',
-    width: 350,
-    marginVertical: 10,
-  },
-
-  carCardContainer: {
+  tabView: {
     flex: 1,
+    justifyContent: 'space-between',
     alignItems: 'center',
-    // borderColor: 'red',
-    // borderWidth: 1,
+    paddingBottom: 20,
+  },
+
+  tabViewContainer: {
+    backgroundColor: '#F4F5F6',
+  },
+
+  contentContainerStyle: {
+    backgroundColor: 'white',
+    borderColor: 'blue',
+    borderWidth: 1,
+  },
+
+  tabBar: {
+    backgroundColor: '#F4F5F6',
+  },
+
+  tabBarIndicator: {
+    backgroundColor: '#DC1637',
+  },
+
+  tabBarText: {
+    fontFamily: 'Archivo-Regular',
+    fontSize: 20,
+    color: '#3D3D4D',
   },
 });
 
