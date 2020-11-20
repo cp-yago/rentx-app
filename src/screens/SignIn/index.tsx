@@ -5,6 +5,7 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
 import { signInRequest } from '../../store/modules/auth/actions';
+import { useNavigation } from '@react-navigation/native';
 
 import Checkbox from '@react-native-community/checkbox';
 import CustomInput from '../../components/CustomInput';
@@ -16,6 +17,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 const SignIn: React.FC = () => {
   const dispatch = useDispatch();
   const [toggleCheckBox, setToggleCheckbox] = useState(false);
+  const { navigate } = useNavigation();
 
   const schema = Yup.object().shape({
     email: Yup.string().email().required('Campo e-mail é obrigatório'),
@@ -93,6 +95,16 @@ const SignIn: React.FC = () => {
                   <Button onPress={handleSubmit} enabled={isValid}>
                     Login
                   </Button>
+
+                  <View style={styles.signUpContainer}>
+                    <TouchableOpacity
+                      onPress={() => navigate('SignUp')}
+                      style={styles.signUpButton}>
+                      <Text style={styles.checkboxText}>
+                        Ainda não tem conta? Clique aqui!
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
                 </>
               </View>
             );

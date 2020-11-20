@@ -8,12 +8,7 @@ const styles = StyleSheet.create({
 
   pageIntro: {
     height: '50%',
-    // width: '100%',
     justifyContent: 'center',
-    // alignItems: 'center',
-
-    // borderColor: 'red',
-    // borderWidth: 1,
   },
 
   titlesContainer: {
@@ -41,9 +36,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 10,
-
-    // borderColor: 'red',
-    // borderWidth: 1,
   },
 
   checkboxContainer: {
@@ -60,6 +52,19 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter-Regular',
     fontSize: 13,
     color: '#737380',
+  },
+
+  signUpContainer: {
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+
+    marginTop: 30,
+  },
+
+  signUpButton: {
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
